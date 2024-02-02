@@ -14,7 +14,6 @@ const Main = () => {
         setUsers(newUsers);
       } catch (error) {
         console.error("Error fetching users:", error);
-      } finally {
       }
     };
 
