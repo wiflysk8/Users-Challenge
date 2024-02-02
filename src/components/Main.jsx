@@ -38,7 +38,14 @@ const Main = () => {
         ta={"center"}
       >{`${user.first_name} ${user.last_name}`}</Table.Td>
       <Table.Td ta={"center"}>{user.email}</Table.Td>
-      <Table.Td ta={"center"}>{user.phone_number}</Table.Td>
+      <Table.Td ta={"center"}>
+        {user.phone_number
+          .slice(0, user.phone_number.indexOf("x"))
+          .replaceAll(".", "-")
+          .replace("(", "")
+          .replace(")", "")
+          .trim()}
+      </Table.Td>
       <Table.Td ta={"center"} align="center">
         <img
           src={user.image}
