@@ -4,6 +4,7 @@ import { fetchUsers } from "../services/userServices";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const pageSize = 12;
+const usersLimit = 100;
 const Main = () => {
   const [users, setUsers] = useState([]);
 
@@ -16,7 +17,6 @@ const Main = () => {
         console.error("Error fetching users:", error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -56,7 +56,7 @@ const Main = () => {
             handleLoadMore();
           }, 1000)
         }
-        hasMore={users.length <= 100}
+        hasMore={users.length <= usersLimit}
         loader={
           <Flex w="100%" align="center" justify="center" gap={12} m={"12 0"}>
             <Text>LOADING MORE USERS</Text>
