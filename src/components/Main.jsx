@@ -32,8 +32,6 @@ const Main = () => {
     setUsers([...users, ...newUsers]);
   };
 
-  console.log(users);
-
   const rows = users.map((user, i) => (
     <Table.Tr key={`${user} + ${i}`}>
       <Table.Td ta={"center"}>{user.first_name}</Table.Td>
