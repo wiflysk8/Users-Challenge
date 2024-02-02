@@ -10,8 +10,8 @@ const Main = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const newUsers = await fetchUsers(pageSize);
-        setUsers(newUsers);
+        const fetchedUsers = await fetchUsers(pageSize);
+        setUsers(fetchedUsers);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
