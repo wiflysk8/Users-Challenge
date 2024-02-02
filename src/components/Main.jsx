@@ -21,12 +21,21 @@ const Main = () => {
   }, []);
 
   const handleLoadMore = async () => {
-    const newUsers = await fetchUsers(pageSize);
+    if (users.length >= usersLimit) {
+      return;
+    }
+    const newUsers = await fetchUsers(
+      usersLimit - users.length > pageSize
+        ? pageSize
+        : usersLimit - users.length
+    );
     setUsers([...users, ...newUsers]);
   };
 
-  const rows = users.map((user) => (
-    <Table.Tr key={user.id}>
+  console.log(users);
+
+  const rows = users.map((user, i) => (
+    <Table.Tr key={`${user} + ${i}`}>
       <Table.Td ta={"center"}>{user.first_name}</Table.Td>
       <Table.Td ta={"center"}>{user.email}</Table.Td>
       <Table.Td ta={"center"}>{user.phone_number}</Table.Td>
@@ -56,7 +65,7 @@ const Main = () => {
             handleLoadMore();
           }, 1000)
         }
-        hasMore={users.length <= usersLimit}
+        hasMore={users.length < usersLimit}
         loader={
           <Flex w="100%" align="center" justify="center" gap={12} m={"12 0"}>
             <Text>LOADING MORE USERS</Text>
