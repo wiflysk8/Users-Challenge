@@ -6,12 +6,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const pageSize = 12;
 const Main = () => {
   const [users, setUsers] = useState([]);
-  const [size, setSize] = useState(pageSize);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const newUsers = await fetchUsers(size);
+        const newUsers = await fetchUsers(pageSize);
         setUsers(newUsers);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -20,7 +19,12 @@ const Main = () => {
     };
 
     fetchData();
-  }, [size]);
+  }, []);
+
+  const handleLoadMore = async () => {
+    const newUsers = await fetchUsers(pageSize);
+    setUsers([...users, ...newUsers]);
+  };
 
   const rows = users.map((user) => (
     <Table.Tr key={user.id}>
@@ -51,10 +55,10 @@ const Main = () => {
         dataLength={users.length}
         next={() =>
           setTimeout(() => {
-            setSize((prevSize) => prevSize + pageSize);
+            handleLoadMore();
           }, 1000)
         }
-        hasMore={size <= 100}
+        hasMore={users.length <= 100}
         loader={
           <Flex w="100%" align="center" justify="center" gap={12} m={"12 0"}>
             <Text>LOADING MORE USERS</Text>
