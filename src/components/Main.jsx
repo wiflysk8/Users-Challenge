@@ -3,7 +3,7 @@ import { Flex, Loader, Table, Text, Title } from "@mantine/core";
 import { fetchUsers } from "../services/userServices";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const pageSize = 12;
+const pageSize = 20;
 const usersLimit = 100;
 const Main = () => {
   const [users, setUsers] = useState([]);
@@ -34,7 +34,9 @@ const Main = () => {
 
   const rows = users.map((user, i) => (
     <Table.Tr key={`${user} + ${i}`}>
-      <Table.Td ta={"center"}>{user.first_name}</Table.Td>
+      <Table.Td
+        ta={"center"}
+      >{`${user.first_name} ${user.last_name}`}</Table.Td>
       <Table.Td ta={"center"}>{user.email}</Table.Td>
       <Table.Td ta={"center"}>{user.phone_number}</Table.Td>
       <Table.Td ta={"center"} align="center">
